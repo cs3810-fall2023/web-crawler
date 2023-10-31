@@ -14,8 +14,6 @@ import (
 	"os"
 )
 
-//!-breadthFirst
-
 // !+crawl
 func crawl(url string) []string {
 	fmt.Println(url)
