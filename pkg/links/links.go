@@ -10,27 +10,17 @@ package links
 import (
 	"fmt"
 	"net/http"
-	"sync"
 
 	"golang.org/x/net/html"
 )
 
 // Extract makes an HTTP GET request to the specified URL, parses
 // the response as HTML, and returns the links in the HTML document.
-func Extract(url string) {
-
-	var wg sync.WaitGroup
-
-	wg.Add(2)
+func Extract(url string) ([]string, error) {
 
 	go Getter(url)
 	go Analyser(url)
-
-	wg.Done()
-	go Request(url)
-	wg.Wait()
-
-	// return Request(url)
+	return Request(url)
 
 }
 
