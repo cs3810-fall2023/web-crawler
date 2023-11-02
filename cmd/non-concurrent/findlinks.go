@@ -17,6 +17,7 @@ import (
 // !+crawl
 func crawl(url string) []string {
 	fmt.Println(url)
+	links.Extract(url)
 	list, err := links.Extract(url)
 	if err != nil {
 		log.Print(err)
