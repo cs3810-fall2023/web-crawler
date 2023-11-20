@@ -3,8 +3,8 @@
 
 # VARIABLES
 CC=go
-BINARY_NAME=crawler
-SRC_DIR=cmd/non-concurrent/main
+BINARY_NAME=findlinks
+SRC_DIR=cmd/non-concurrent
 BLD_DIR=build
 
 # DETERMINE OS
@@ -23,12 +23,12 @@ endif
 # TARGETS
 build:
 	-mkdir -p ${BLD_DIR}
-	GOARCH=amd64 GOOS=darwin ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-darwin ${SRC_DIR}/main.go
-	GOARCH=amd64 GOOS=linux ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-linux ${SRC_DIR}/main.go
-	GOARCH=amd64 GOOS=windows ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-windows ${SRC_DIR}/main.go
+	GOARCH=amd64 GOOS=darwin ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-darwin ${SRC_DIR}/findlinks.go
+	GOARCH=amd64 GOOS=linux ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-linux ${SRC_DIR}/findlinks.go
+	GOARCH=amd64 GOOS=windows ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-windows ${SRC_DIR}/findlinks.go
 
 run: build
-	./${BLD_DIR}/${BINARY_NAME}-${BIN_POSTFIX}
+	./${BLD_DIR}/${BINARY_NAME}-${BIN_POSTFIX} https://google.com
 
 clean:
 	go clean
