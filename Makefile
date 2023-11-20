@@ -28,7 +28,7 @@ build:
 	GOARCH=amd64 GOOS=windows ${CC} build -o ${BLD_DIR}/${BINARY_NAME}-windows ${SRC_DIR}/findlinks.go
 
 run: build
-	./${BLD_DIR}/${BINARY_NAME}-${BIN_POSTFIX} https://google.com
+	./${BLD_DIR}/${BINARY_NAME}-${BIN_POSTFIX} https://crawler-test.com
 
 clean:
 	go clean
