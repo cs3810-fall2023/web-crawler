@@ -38,7 +38,7 @@ clean:
 
 test:
 	${CC} test ${SRC_DIR}
-	${CC} test ${PKG_DIR}/breadthFirst
 	${CC} test ${PKG_DIR}/links
+	${CC} test ${PKG_DIR}/breadthFirst
 
 .PHONY: build run test clean
