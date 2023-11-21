@@ -49,20 +49,45 @@ func Analyser(urlRaw string) error {
 	}
 	return nil
 }
-
 func Request(urlRaw string) ([]string, error) {
 	_, err := validateURL(urlRaw)
 	if err != nil {
 		return nil, err
 	}
+
+	resp, err := getResponse(urlRaw)
+	if err != nil {
+		return nil, err
+	}
+
+	links, err := parseHTML(resp, urlRaw)
+	if err != nil {
+		return nil, err
+	}
+
+	return links, nil
+}
+
+func getResponse(urlRaw string) (*http.Response, error) {
 	resp, err := http.Get(urlRaw)
 	if err != nil {
 		return nil, fmt.Errorf("GET request failed: %v", err)
 	}
+	return resp, nil
+}
+
+func parseHTML(resp *http.Response, urlRaw string) ([]string, error) {
 	doc, err := html.Parse(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %s as HTML: %v", urlRaw, err)
 	}
+
+	links := extractLinks(doc, resp)
+
+	return links, nil
+}
+
+func extractLinks(doc *html.Node, resp *http.Response) []string {
 	var links []string
 	visitNode := func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == "a" {
@@ -79,7 +104,7 @@ func Request(urlRaw string) ([]string, error) {
 		}
 	}
 	forEachNode(doc, visitNode, nil)
-	return links, nil
+	return links
 }
 
 // Validate url

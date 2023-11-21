@@ -4,7 +4,8 @@
 # VARIABLES
 CC=go
 BINARY_NAME=findlinks
-SRC_DIR=cmd/non-concurrent
+SRC_DIR=./cmd/non-concurrent
+PKG_DIR=./pkg
 BLD_DIR=build
 
 # DETERMINE OS
@@ -36,6 +37,8 @@ clean:
 	-rm -f `fzf -f .DS_Store`
 
 test:
-	${CC} test ${SRC_DIR}/...
+	${CC} test ${SRC_DIR}
+	${CC} test ${PKG_DIR}/breadthFirst
+	${CC} test ${PKG_DIR}/links
 
 .PHONY: build run test clean
