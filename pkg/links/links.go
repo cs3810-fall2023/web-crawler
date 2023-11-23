@@ -49,6 +49,7 @@ func Analyser(urlRaw string) error {
 	}
 	return nil
 }
+
 func Request(urlRaw string) ([]string, error) {
 	_, err := validateURL(urlRaw)
 	if err != nil {
